@@ -1,0 +1,40 @@
+{% extends 'project/base.html' %}
+{% block content %}
+    <div class="">
+        <form action="{% url 'add' %}" method="post">
+            {% csrf_token %}
+            <form class="form-inline my-2">
+                <div class="row">
+                    <div class="col-md-10">
+                        <input class="form-control p-3" type="text" placeholder="Add Hear" name="content">
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" class="form-control btn btn-info p-1 my-1">
+                    </div>
+                </div>
+              </form>
+        </form>
+        <div class="my-3">
+            <ul class="list-group">
+                {% for todo in todos %}
+                    <form method="post" action="#">{% csrf_token %}
+                        <li class="list-group-item">
+                            {% if todo.complate == True %}
+                                <strike>{{todo.text}}</strike>
+                            {% else %}
+                                <span>{{todo.text}}</span>
+                            {% endif %}
+                            <a style="float: right;" href="delete/{{todo.id}}/" class="btn btn-danger btn-sm py-1">Delete</a>
+                            <a style="float: right;" href="update/{{todo.id}}/" class="btn btn-warning btn-sm py-1 mx-1">Update</a>
+                        </li>
+                    </form>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock content %}
